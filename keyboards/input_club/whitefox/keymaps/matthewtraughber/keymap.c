@@ -116,13 +116,33 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [LEDTOG_CAPS] = ACTION_TAP_DANCE_DOUBLE(BL_TOGG, KC_CAPS),
 };
 
-// custom tapping terms per tap dance
+// tapping terms for dual-role keys
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TD(LSFT_SPACECMDR): case TD(RSFT_SPACECMDR):
             return TAPPING_TERM + 200;
         default:
             return TAPPING_TERM;
+    }
+}
+
+// "permissive" mode for dual-role keys
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, KC_ESC):
+            return true;
+        default:
+            return false;
+    }
+}
+
+// “hold on other key press” mode for dual-role keys
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(1, KC_ESC):
+            return true;
+        default:
+            return false;
     }
 }
 
